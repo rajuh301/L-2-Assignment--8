@@ -1,6 +1,7 @@
 import express from "express"
 import { bookRouter } from "../modules/Book/book.route";
 import { memberRouter } from "../modules/Member/member.route";
+import { borrowRecordRouter } from "../modules/BorrowRecord/borrowRecord.route";
 
 
 
@@ -14,6 +15,10 @@ const modulesRoutes = [
     {
         path: "/members",
         route: memberRouter
+    },
+    {
+        path: "/borrow",
+        route: borrowRecordRouter
     },
 ];
 
