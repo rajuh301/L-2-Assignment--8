@@ -1,6 +1,7 @@
 import prisma from "../../../shared/prisma";
+import { TBook } from "./book.interface";
 
-const createBook = async (data: any) => {
+const createBook = async (data: TBook) => {
     const result = await prisma.book.create({
         data: data
     });
@@ -30,7 +31,7 @@ const getBookId = async (bookId: string) => {
     return result
 };
 
-const updateBook = async (bookId: string, data: any) => {
+const updateBook = async (bookId: string, data: TBook) => {
 
     await prisma.book.findUniqueOrThrow({
         where: {
@@ -50,7 +51,6 @@ const updateBook = async (bookId: string, data: any) => {
 
 
 
-//------- Not working delete function
 
 const deleteBook = async (bookId: string) => {
 
