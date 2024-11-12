@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,6 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Book Table
 model Book {
   bookId          String         @id @default(uuid())
   title           String
@@ -20,31 +15,35 @@ model Book {
   publishedYear   Int
   totalCopies     Int
   availableCopies Int
-  BorrowRecords   BorrowRecord[]
+  borrowRecords   BorrowRecord[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-model Author {
-  authorId    String   @id @default(uuid())
-  name        String
-  bio         String
-  dateOfBirth DateTime @default(now())
-}
-
+// Member Table
 model Member {
   memberId       String         @id @default(uuid())
   name           String
   email          String         @unique
   phone          String
   membershipDate DateTime       @default(now())
-  BorrowRecords  BorrowRecord[]
+  borrowRecords  BorrowRecord[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
+// BorrowRecord Table (Many-to-Many Relationship between Books and Members)
 model BorrowRecord {
   borrowId   String    @id @default(uuid())
   borrowDate DateTime  @default(now())
   returnDate DateTime?
+  book       Book      @relation(fields: [bookId], references: [bookId])
   bookId     String
-  memberId   String
-  book       Book      @relation(fields: [bookId], references: [bookId], onDelete: Cascade)
   member     Member    @relation(fields: [memberId], references: [memberId])
+  memberId   String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

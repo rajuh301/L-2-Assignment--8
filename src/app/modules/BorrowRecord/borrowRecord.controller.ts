@@ -22,6 +22,8 @@ const createBorrow = catchAsync(async (req: Request, res: Response) => {
 
 });
 
+
+
 export const borrowRecordController = {
     createBorrow
 }

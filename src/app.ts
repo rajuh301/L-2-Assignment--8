@@ -1,4 +1,4 @@
-import express, { Application, Request, Response } from "express"
+import express, { Application, NextFunction, Request, Response } from "express"
 import cors from "cors"
 import cookieParser from 'cookie-parser'
 import router from "./app/routes";
@@ -21,8 +21,20 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use("/api/", router);
-
 app.use(globalErrorHandlear)
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+    res.status(404).json({
+
+        sussess: false,
+        message: "API NOT FOUND!",
+        error: {
+            patah: req.originalUrl,
+            message: "Your requested path is not found!"
+        }
+
+    })
+});
 
 
 
