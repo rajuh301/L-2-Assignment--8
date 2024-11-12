@@ -2,6 +2,8 @@ import prisma from "../../../shared/prisma";
 
 
 const createMebmer = async (data: any) => {
+
+  
     const result = await prisma.member.create({
         data
     })

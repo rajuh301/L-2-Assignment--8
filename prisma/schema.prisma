@@ -39,7 +39,7 @@ model BorrowRecord {
   borrowId   String    @id @default(uuid())
   borrowDate DateTime  @default(now())
   returnDate DateTime?
-  book       Book      @relation(fields: [bookId], references: [bookId])
+  book       Book      @relation(fields: [bookId], references: [bookId], onDelete: Cascade)
   bookId     String
   member     Member    @relation(fields: [memberId], references: [memberId])
   memberId   String
